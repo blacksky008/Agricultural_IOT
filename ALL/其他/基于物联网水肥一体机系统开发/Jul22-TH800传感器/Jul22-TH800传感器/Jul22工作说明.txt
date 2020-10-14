@@ -1,0 +1,35 @@
+1.基于Software Serial的连接：
+
+这方面资料大部分是关于两个Arduino之间用以485通信标准互相沟通的，这里假定我使用的Arduino是主机，TH800是另一个从机；
+相关代码：sketch_jul22a
+相关教程：https://www.arduino.cn/thread-47862-1-3.html
+
+结果：失败
+Master.available()报告为false，检测不到从机的信号
+
+2.基于ModbusMaster库（0.1.1版本）的连接：
+
+这方面是查到了一个用Arduino走Modbus协议，连接一个电能表资料；利好消息：那个电能表和TH800传感器在各方面很像，例如有寄存器地址，等等；
+相关代码：sketch_jul22b
+相关教程：https://blog.csdn.net/UbiBots/article/details/51613685
+
+结果：失败
+无法检测到Result，一直在报错（E2，TX、RX断连）
+
+2.1基于ModbusMaster库（0.1.1版本+自行补丁）的连接：
+
+StackExchange上，有一个7年前的帖子，代码和我目前的很相近，指出如果Arduino用MAX485来走Modbus协议，在库里有一个bug，需要自行修改库内代码才可以运行
+相关代码：sketch_jul22b
+相关教程：https://electronics.stackexchange.com/questions/49097/arduino-as-modbus-master-with-max485-doesnt-get-any-response
+
+结果：失败
+无法检测到Result,一直在报错（E2, TX、RX断连）
+
+3.基于ModbusMaster库（2.0.1版本）的连接：
+
+ModbusMaster库在近年一直在更新，最新的2.0.1版本的代码和0.1.1已经有了不小的差别，这里我根据库本身的示例和网上的代码做改编，试图连接传感器
+相关代码：sketch_jul22c
+相关教程：https://circuitdigest.com/microcontroller-projects/rs-485-modbus-serial-communication-with-arduino-as-master
+
+结果：失败
+无法检测到Result，串口出现未知结果（我没写主动报错的代码，但是串口一直有输出）
